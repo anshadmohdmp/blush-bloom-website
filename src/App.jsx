@@ -20,7 +20,7 @@ import Cart from './Products/Cart';
 import Wishlist from './Products/Wishlist';
 import Order from './Order';
 import Profile from './Profile';
-import MyOrders from './Myorders';
+import MyOrders from './MyOrders';
 import Orderdetails from './Orderdetails';
 import Listcatogories from './Products/Listcatogories';
 
