@@ -1,0 +1,34 @@
+.carousel-indicators [data-bs-target] {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #000;   /* inner dot color */
+  border: 2px solid white; /* white ring around the dot */
+  margin: 0 6px;            /* spacing between dots */
+}
+
+/* Active indicator with a stronger ring */
+.carousel-indicators .active {
+  background-color: #f5f5f5;  /* active dot color */
+  border: 2px solid #f9f9f9;  /* outer ring color */
+  box-shadow: 0 0 5px #ffffff; /* glowing effect (optional) */
+}
+
+.banner-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Make images cover area properly */
+.banner-img {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover; /* ensures no stretching */
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .banner-img {
+    height: 50vh; /* smaller height on phones */
+  }
+}

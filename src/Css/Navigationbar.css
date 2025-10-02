@@ -1,0 +1,186 @@
+/* ------------------ Navbar Base ------------------ */
+.custom-navbar {
+  transition: 0.3s ease;
+  padding: 0.5rem 1rem;
+  min-height: 70px;
+  z-index: 1100; /* above most elements */
+  position: relative;
+}
+
+/* Transparent navbar for home */
+.navbar-transparent {
+  background-color: transparent !important;
+}
+
+/* Colored navbar for other pages */
+.navbar-colored {
+  background-color: #dcdcf7ff !important;
+}
+
+/* ------------------ Logo ------------------ */
+.nav-img {
+  max-height: 60px;
+  width: auto;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Home → white logo */
+.navbar-transparent .nav-img {
+  filter: brightness(0) invert(1);
+}
+
+/* Other pages → normal logo */
+.navbar-colored .nav-img {
+  filter: none;
+}
+
+.nav-img:hover {
+  transform: scale(1.1);
+}
+
+/* ------------------ Links ------------------ */
+.navbar .nav-link {
+  transition: all 0.3s ease;
+}
+
+/* Home → white links */
+.navbar-transparent .nav-link {
+  color: white !important;
+}
+
+/* Other pages → dark links */
+.navbar-colored .nav-link {
+  color: #4B2C3F !important;
+}
+
+/* Hover → pink */
+.navbar .nav-link:hover {
+  color: #B76E79 !important;
+  transform: scale(1.1);
+}
+
+/* ------------------ Icons ------------------ */
+.navbar .nav-link svg {
+  color: inherit !important;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar .nav-link:hover svg {
+  color: #B76E79 !important;
+  transform: scale(1.1);
+}
+
+/* ------------------ Dropdown ------------------ */
+.navbar .dropdown-menu {
+  background-color: white !important;
+  border: none;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+  color: black !important;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+  background-color: #f1f1f1 !important;
+  color: #B76E79 !important;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+/* ------------------ Cart Count ------------------ */
+.cart-count {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: 4px;
+  position: relative;
+  top: -10px;
+}
+
+/* ------------------ Animation ------------------ */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.navbar {
+  animation: slideDown 1.8s ease-out forwards;
+}
+
+/* ------------------ Sidebar for Mobile ------------------ */
+.offcanvas.sidebar {
+  width: 250px;
+  background-color: #000 !important;
+  color: #fff !important;
+  padding: 1rem;
+  position: fixed;
+  z-index: 1200; /* above navbar */
+}
+
+/* Sidebar links */
+.offcanvas.sidebar .nav-link,
+.offcanvas.sidebar .dropdown-item {
+  color: #fff !important;
+  font-size: 16px;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.offcanvas.sidebar .nav-link:hover,
+.offcanvas.sidebar .dropdown-item:hover {
+  background-color: #333 !important;
+  color: #B76E79 !important;
+}
+
+/* Remove border/shadow from sidebar */
+.offcanvas.sidebar .offcanvas-body {
+  padding: 0;
+}
+
+/* Sidebar dropdown adjustments */
+.offcanvas.sidebar .dropdown-menu {
+  background-color: #111 !important;
+  border: none;
+  margin: 0;
+}
+
+.offcanvas.sidebar .dropdown-item {
+  color: #fff !important;
+}
+
+/* ------------------ Responsive ------------------ */
+@media (max-width: 992px) {
+  .nav-img {
+    max-height: 40px;
+    width: 120px;
+    opacity: 1;
+    position: relative;
+  }
+
+  .navbar-toggler {
+    border: none;
+    outline: none;
+    z-index: 1250; /* above everything */
+  }
+
+  .offcanvas.sidebar .nav-link {
+    font-size: 14px;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.5rem 0;
+    font-size: 14px;
+  }
+}
