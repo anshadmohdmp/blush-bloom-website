@@ -1,0 +1,27 @@
+
+.head6:hover{
+    color: rgb(195, 0, 0);
+    transform: scale(1.1);
+
+}
+.categoriescard:hover{
+    color: rgb(195, 0, 0);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.card-image:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.card-title-items{
+    font-size: 18px;
+    cursor: pointer;
+}
+.shadow-sm:hover{
+   
+    transform: scale(1.05);
+}
+
+div::-webkit-scrollbar {
+  display: none;
+}

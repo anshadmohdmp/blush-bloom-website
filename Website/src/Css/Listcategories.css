@@ -1,0 +1,8 @@
+.cat:hover{
+    transform: scale(1.03);
+}
+
+.cattext:hover{
+    color: rgb(166, 0, 0);
+    transform: scale(1.03);
+}
