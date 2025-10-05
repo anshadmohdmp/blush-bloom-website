@@ -28,7 +28,7 @@ const Createcategory = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3001/createcategory", { categoryname, categorydescription, categoryimage })
+    axios.post("https://blush-bloom-api.onrender.com/createcategory", { categoryname, categorydescription, categoryimage })
     .then(result => console.log(result.data))
     .then(() => navigate('/listcategory'))
         .catch(err => console.log(err));

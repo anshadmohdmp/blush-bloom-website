@@ -6,7 +6,7 @@
 
     useEffect(() => {
       axios
-        .get("http://localhost:3001/orders")
+        .get("https://blush-bloom-api.onrender.com/orders")
         .then((res) => setOrders(res.data))
         .catch((err) => console.log(err));
     }, []);
@@ -29,7 +29,7 @@
     // Handle status change
   const handleStatusChange = async (orderId, newStatus) => {
   try {
-    const res = await axios.put(`http://localhost:3001/orders/${orderId}/status`, { status: newStatus });
+    const res = await axios.put(`https://blush-bloom-api.onrender.com/orders/${orderId}/status`, { status: newStatus });
     setOrders((prevOrders) =>
       prevOrders.map((order) =>
         order._id === orderId ? { ...order, orderStatus: res.data.orderStatus } : order

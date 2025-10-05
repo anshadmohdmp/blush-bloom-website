@@ -10,7 +10,7 @@ const ProductTable = () => {
 
   useEffect(() => {
     axios
-    .get("http://localhost:3001/products")
+    .get("https://blush-bloom-api.onrender.com/products")
     .then(result => { console.log(result.data);
     
       setProducts(result.data)})
@@ -21,7 +21,7 @@ const ProductTable = () => {
   const deleteproduct = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
   if (!confirmDelete) return;
-    axios.delete(`http://localhost:3001/products/${id}`)
+    axios.delete(`https://blush-bloom-api.onrender.com/products/${id}`)
     .then((res) => {
       console.log(res.data);
       alert("Product Deleted Successfully");

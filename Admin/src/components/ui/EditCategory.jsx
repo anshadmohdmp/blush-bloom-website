@@ -19,7 +19,7 @@ const EditCategory = () => {
 
    useEffect(() => {
      axios
-     .get(`http://localhost:3001/category/${id}`)
+     .get(`https://blush-bloom-api.onrender.com/category/${id}`)
         .then(result => { 
             console.log(result.data);
             
@@ -32,7 +32,7 @@ const EditCategory = () => {
 
     const submitdata = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:3001/category/${id}`, { categoryname, categorydescription, categoryimage })
+        axios.put(`https://blush-bloom-api.onrender.com/category/${id}`, { categoryname, categorydescription, categoryimage })
         .then(result => console.log(result.data))
         Navigate('/listcategory')
         .catch(err => console.log(err));

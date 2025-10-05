@@ -10,7 +10,7 @@ const ListCategory = () => {
 
   useEffect(() => {
     axios
-    .get("http://localhost:3001/category")
+    .get("https://blush-bloom-api.onrender.com/category")
     .then(result => { setcategory(result.data)})
     .catch(err => console.log(err));
 
@@ -19,7 +19,7 @@ const ListCategory = () => {
   const deleteproduct = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
   if (!confirmDelete) return;
-    axios.delete(`http://localhost:3001/category/${id}`)
+    axios.delete(`https://blush-bloom-api.onrender.com/category/${id}`)
     .then((res) => {
       console.log(res.data);
       alert("Product Deleted Successfully");

@@ -31,7 +31,7 @@ const CreateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3001/create", { name, price, category, description, image })
+    axios.post("https://blush-bloom-api.onrender.com/create", { name, price, category, description, image })
     .then(result => console.log(result.data))
     .then(() => navigate('/list'))
         .catch(err => console.log(err));
@@ -39,7 +39,7 @@ const CreateForm = () => {
   
   useEffect(() => {
     axios
-    .get("http://localhost:3001/category")
+    .get("https://blush-bloom-api.onrender.com/category")
     .then(result => { setselectedcategory(result.data)})
     .catch(err => console.log(err));
     

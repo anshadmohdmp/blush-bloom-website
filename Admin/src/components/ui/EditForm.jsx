@@ -21,7 +21,7 @@ const EditForm = () => {
 
    useEffect(() => {
      axios
-     .get(`http://localhost:3001/products/${id}`)
+     .get(`https://blush-bloom-api.onrender.com/${id}`)
         .then(result => { 
             console.log(result.data);
             
@@ -36,7 +36,7 @@ const EditForm = () => {
 
     const submitdata = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:3001/products/${id}`, { name, price, category,description, image })
+        axios.put(`https://blush-bloom-api.onrender.com/${id}`, { name, price, category,description, image })
         .then(result => console.log(result.data))
         Navigate('/list')
         .catch(err => console.log(err));
