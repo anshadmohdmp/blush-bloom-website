@@ -55,6 +55,10 @@ passport.deserializeUser(async (id, done) => {
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 // ------------------ AUTH MIDDLEWARE ------------------
 const authMiddleware = (req, res, next) => {
   try {
