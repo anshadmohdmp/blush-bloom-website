@@ -19,7 +19,7 @@ const Profile = () => {
   useEffect(() => {
     if (token) {
       axios
-        .get("https://blush-bloom-api-1.onrender.com/profile", {
+        .get("https://blush-bloom-api.onrender.com/profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUser(res.data))

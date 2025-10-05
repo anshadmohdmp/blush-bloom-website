@@ -27,7 +27,7 @@ const Wishlist = () => {
 
   const fetchWishlist = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/wishlist`, {
+      const res = await axios.get(`https://blush-bloom-api.onrender.com/wishlist`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWishlist(res.data.items || []);
@@ -40,7 +40,7 @@ const Wishlist = () => {
 
   const removeItem = async (productId) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/wishlist/${productId}`, {
+      await axios.delete(`https://blush-bloom-api.onrender.com/wishlist/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchWishlist();
@@ -62,7 +62,7 @@ const Wishlist = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/cart`,
+        `https://blush-bloom-api.onrender.com/cart`,
         {
           productId: selectedProduct.product._id,
           size: selectedSize,

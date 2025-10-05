@@ -22,7 +22,7 @@ const Orderdetails = () => {
   useEffect(() => {
     if (token) {
       axios
-        .get(`${import.meta.env.VITE_API_URL}/myorders/${id}`, {
+        .get(`https://blush-bloom-api.onrender.com/myorders/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setOrder(res.data))
@@ -38,7 +38,7 @@ const Orderdetails = () => {
     if (!order?._id) return;
     try {
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/${order._id}/cancel`,
+        `https://blush-bloom-api.onrender.com/${order._id}/cancel`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       closeCancelModal();
@@ -67,7 +67,7 @@ const Orderdetails = () => {
 
     try {
       await axios.put(
-        `${import.meta.env.VITE_API_URL}/orders/${order._id}/return`,
+        `https://blush-bloom-api.onrender.com/orders/${order._id}/return`,
         { reason: reasonToSend },
         { headers: { Authorization: `Bearer ${token}` } }
       );

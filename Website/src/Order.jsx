@@ -80,7 +80,7 @@ const submitOrder = async (paymentResponse = null, paymentMode = PaymentMode) =>
   try {
     // 1️⃣ Save order
     const result = await axios.post(
-      `${import.meta.env.VITE_API_URL}/order`,
+      `https://blush-bloom-api.onrender.com/order`,
       {
         Name,
         Mobile,
@@ -114,7 +114,7 @@ const submitOrder = async (paymentResponse = null, paymentMode = PaymentMode) =>
     console.log("Order saved:", result.data);
 
     // 2️⃣ Clear backend cart immediately
-    const clearRes = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/clear`, {
+    const clearRes = await axios.delete(`https://blush-bloom-api.onrender.com/cart/clear`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log("Cart clear response:", clearRes.data);

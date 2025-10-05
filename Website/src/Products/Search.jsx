@@ -17,7 +17,7 @@ const Search = () => {
 
   if (query) {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/products?search=${query}`)
+      .get(`https://blush-bloom-api.onrender.com/products?search=${query}`)
       .then((res) => {
         console.log("Backend response:", res.data); // 👀 log this
         setProducts(res.data);

@@ -17,7 +17,7 @@ const Categories = () => {
   // Fetch products by category
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/products/category/${categoryname}`)
+      .get(`https://blush-bloom-api.onrender.com/products/category/${categoryname}`)
       .then((res) => setFiltered(res.data))
       .catch((err) => console.log(err));
 
@@ -29,7 +29,7 @@ const Categories = () => {
   // Fetch wishlist
   const fetchWishlist = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/wishlist`, {
+      const res = await axios.get(`https://blush-bloom-api.onrender.com/wishlist`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWishlistItems(res.data.items.map((item) => item.product._id));
@@ -48,13 +48,13 @@ const Categories = () => {
 
     try {
       if (wishlistItems.includes(productId)) {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/wishlist/${productId}`, {
+        await axios.delete(`https://blush-bloom-api.onrender.com/wishlist/${productId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setWishlistItems((prev) => prev.filter((id) => id !== productId));
       } else {
         await axios.post(
-          `${import.meta.env.VITE_API_URL}/wishlist`,
+          `https://blush-bloom-api.onrender.com/wishlist`,
           { productId },
           { headers: { Authorization: `Bearer ${token}` } }
         );

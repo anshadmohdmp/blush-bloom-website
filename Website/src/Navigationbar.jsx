@@ -29,7 +29,7 @@ const Navigationbar = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/category`)
+      .get(`https://blush-bloom-api.onrender.com/category`)
       .then((result) => setCategories(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -37,12 +37,12 @@ const Navigationbar = () => {
   useEffect(() => {
     if (token) {
       axios
-        .get(`${import.meta.env.VITE_API_URL}/cart`, { headers: { Authorization: `Bearer ${token}` } })
+        .get(`https://blush-bloom-api.onrender.com/cart`, { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => setCartCount(res.data.items.length || 0))
         .catch((err) => console.log(err));
 
       axios
-        .get(`${import.meta.env.VITE_API_URL}/wishlist`, { headers: { Authorization: `Bearer ${token}` } })
+        .get(`https://blush-bloom-api.onrender.com/wishlist`, { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => setWishlistCount(res.data.items.length || 0))
         .catch((err) => console.log(err));
     } else {

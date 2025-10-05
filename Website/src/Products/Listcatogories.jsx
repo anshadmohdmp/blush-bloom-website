@@ -8,7 +8,7 @@ const ListCategories = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/category`)
+      .get(`https://blush-bloom-api.onrender.com/category`)
       .then((result) => setCategories(result.data))
       .catch((err) => console.log(err));
   }, []);
