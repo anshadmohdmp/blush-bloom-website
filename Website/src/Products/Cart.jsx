@@ -29,7 +29,7 @@ useEffect(() => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`https://blush-bloom-api.onrender.com/cart`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems(res.data.items || []);
@@ -46,7 +46,7 @@ useEffect(() => {
     if (newQty < 1) return;
     try {
       await axios.put(
-        `https://blush-bloom-api.onrender.com/cart`,
+        `${import.meta.env.VITE_API_URL}/cart`,
         { productId, quantity: newQty },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -58,7 +58,7 @@ useEffect(() => {
 
   const removeItem = async (productId) => {
     try {
-      await axios.delete(`https://blush-bloom-api.onrender.com/cart/${productId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/cart/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchCart();
@@ -88,7 +88,7 @@ useEffect(() => {
   const updateSize = async (productId, newSize) => {
     try {
       await axios.put(
-        `https://blush-bloom-api.onrender.com/cart/size`,
+        `${import.meta.env.VITE_API_URL}/cart/size`,
         { productId, size: newSize },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -19,7 +19,7 @@ const Profile = () => {
   useEffect(() => {
     if (token) {
       axios
-        .get("https://blush-bloom-api.onrender.com/profile", {
+        .get(`${import.meta.env.VITE_API_URL}/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUser(res.data))

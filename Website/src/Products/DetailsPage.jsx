@@ -25,7 +25,7 @@ const DetailsPage = () => {
 
   useEffect(() => {
     axios
-      .get(`https://blush-bloom-api.onrender.com/products/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/products/${id}`)
       .then((result) => {
         setName(result.data.name);
         setPrice(result.data.price);
@@ -49,7 +49,7 @@ const DetailsPage = () => {
     try {
       setLoading(true);
       await axios.post(
-        `https://blush-bloom-api.onrender.com/cart`,
+        `${import.meta.env.VITE_API_URL}/cart`,
         { productId: id, quantity, size },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -73,7 +73,7 @@ const DetailsPage = () => {
     try {
       setWishLoading(true);
       await axios.post(
-        `https://blush-bloom-api.onrender.com/wishlist`,
+        `${import.meta.env.VITE_API_URL}/wishlist`,
         { productId: id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

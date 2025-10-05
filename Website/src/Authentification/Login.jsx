@@ -22,7 +22,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const res = await axios.post(`https://blush-bloom-api.onrender.com/login`, { email, password });
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
     if (res.data.message === "Login successful") {
       login(res.data.token); // ✅ context login
       alert("Login successful!");
@@ -34,7 +34,7 @@ const Login = () => {
 };
 
   const handleGoogleLogin = () => {
-    window.location.href = `https://blush-bloom-api.onrender.com/auth/google`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   };
 
   // ${import.meta.env.VITE_API_URL}
@@ -101,7 +101,7 @@ const Login = () => {
   style={{ marginTop: "20px", backgroundColor: "white",color:"black",border:'none' }}
   className="d-block mx-auto"
   onClick={() => {
-    window.location.href = `https://blush-bloom-api.onrender.com/auth/google`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   }}
 >
    <FaGoogle />       Login with Google

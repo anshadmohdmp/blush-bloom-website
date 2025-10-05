@@ -15,7 +15,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`https://blush-bloom-api.onrender.com/register`, { firstName, lastName, email, password })
+    axios.post(`${import.meta.env.VITE_API_URL}/register`, { firstName, lastName, email, password })
       .then((res) => {
         alert("Registration successful! Please log in.");
         navigate("/login");

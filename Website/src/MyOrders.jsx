@@ -13,7 +13,7 @@ const MyOrders = () => {
   useEffect(() => {
     if (token) {
       axios
-        .get(`https://blush-bloom-api.onrender.com/myorders`, {
+        .get(`${import.meta.env.VITE_API_URL}/myorders`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setOrders(res.data))

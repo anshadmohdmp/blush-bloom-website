@@ -20,14 +20,14 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`https://blush-bloom-api.onrender.com/products`)
+      .get(`${import.meta.env.VITE_API_URL}/products`)
       .then((result) => setProducts(result.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get(`https://blush-bloom-api.onrender.com/category`)
+      .get(`${import.meta.env.VITE_API_URL}/category`)
       .then((result) => setCategories(result.data))
       .catch((err) => console.log(err));
   }, []);
