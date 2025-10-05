@@ -28,7 +28,7 @@ mongoose
 // ------------------ MIDDLEWARE ------------------
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["blush-bloom-chi.vercel.app", "http://localhost:5174"],
     credentials: true,
   })
 );
@@ -250,7 +250,7 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173/Login",
+    failureRedirect: "blush-bloom-chi.vercel.app/Login",
     session: false,
   }),
   (req, res) => {
@@ -259,7 +259,7 @@ app.get(
       expiresIn: "1h",
     });
 
-   res.redirect(`http://localhost:5173/google-success?token=${token}`);
+   res.redirect(`blush-bloom-chi.vercel.app/google-success?token=${token}`);
   }
 );
 
