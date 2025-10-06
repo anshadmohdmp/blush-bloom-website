@@ -221,7 +221,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'https://blush-bloom.onrender.com/auth/google/callback',
+      callbackURL: 'https://blush-bloom-website.onrender.com/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
