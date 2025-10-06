@@ -172,148 +172,141 @@ const submitOrder = async (paymentResponse = null, paymentMode = PaymentMode) =>
       const change = (id) => navigate(`/details/${id}`);
 
       return (
-        <div style={{ marginTop: "170px", display: "flex", marginBottom: "80px" }}>
-          {/* Left side form */}
-          <div style={{ marginLeft: "200px", width: "50%" }}>
-            <h5 className="mb-4" style={{ fontWeight: "bolder" }}>
-              Delivery Address
-            </h5>
-            <Form onSubmit={handlePayment}>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  value={Name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Name"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  value={Mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  placeholder="Mobile Number"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  value={Pincode}
-                  onChange={handlePincodeChange}
-                  placeholder="Pincode Code"
-                  isInvalid={!!PincodeError}
-                />
-                {PincodeError && (
-                  <div style={{ color: "red", fontSize: "12px" }}>
-                    {PincodeError}
-                  </div>
-                )}
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  value={House}
-                  onChange={(e) => setHouse(e.target.value)}
-                  placeholder="House Number / Tower / Block"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  value={Address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Address (locality, building, street)"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  value={Town}
-                  onChange={(e) => setTown(e.target.value)}
-                  placeholder="Locality / Town"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control value={District} readOnly placeholder="City / District" />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Control value={State} readOnly placeholder="State" />
-              </Form.Group>
-
-              {/* Payment Mode */}
-              <Form.Group className="mb-3">
-                <Form.Select
-                  value={PaymentMode}
-                  onChange={(e) => setPaymentMode(e.target.value)}
-                >
-                  <option value="COD">Cash on Delivery</option>
-                  <option value="UPI">UPI Payment</option>
-                </Form.Select>
-              </Form.Group>
-
-              <div
-                style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-              >
-                <Button type="submit" style={{ width: "20%" }} disabled={loading}>
-                  {loading ? "Processing..." : "Submit"}
-                </Button>
-              </div>
-            </Form>
+        <div
+        className="px-2 px-sm-0"
+  style={{
+    marginTop: "120px",
+    display: "flex",
+    flexWrap: "wrap",
+    marginBottom: "80px",
+    justifyContent: "center",
+    gap: "30px",
+  }}
+>
+  {/* Left side form */}
+  <div
+    style={{
+      flex: "1 1 500px",    // grow/shrink
+      minWidth: "300px",    // ensures it doesn’t disappear on small screens
+      maxWidth: "600px",
+    }}
+  >
+    <h5 className="mb-4" style={{ fontWeight: "bolder" }}>
+      Delivery Address
+    </h5>
+    <Form onSubmit={handlePayment}>
+      <Form.Group className="mb-3">
+        <Form.Control
+          value={Name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control
+          value={Mobile}
+          onChange={(e) => setMobile(e.target.value)}
+          placeholder="Mobile Number"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control
+          value={Pincode}
+          onChange={handlePincodeChange}
+          placeholder="Pincode Code"
+          isInvalid={!!PincodeError}
+        />
+        {PincodeError && (
+          <div style={{ color: "red", fontSize: "12px" }}>
+            {PincodeError}
           </div>
+        )}
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control
+          value={House}
+          onChange={(e) => setHouse(e.target.value)}
+          placeholder="House Number / Tower / Block"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control
+          value={Address}
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Address (locality, building, street)"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control
+          value={Town}
+          onChange={(e) => setTown(e.target.value)}
+          placeholder="Locality / Town"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control value={District} readOnly placeholder="City / District" />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Control value={State} readOnly placeholder="State" />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Select
+          value={PaymentMode}
+          onChange={(e) => setPaymentMode(e.target.value)}
+        >
+          <option value="COD">Cash on Delivery</option>
+          <option value="UPI">UPI Payment</option>
+        </Form.Select>
+      </Form.Group>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+        <Button type="submit" style={{ width: "50%",backgroundColor:"black",color:"white", border:"none" }} disabled={loading}>
+          {loading ? "Processing..." : "Submit"}
+        </Button>
+      </div>
+    </Form>
+  </div>
 
-          {/* Right side order summary */}
-          <div style={{ marginLeft: "30px", width: "40%" }}>
-            <h6 style={{ fontSize: "12px", fontWeight: "bolder" }}>
-              DELIVERY ESTIMATES
-            </h6>
-            {cartItems.map((item) => (
-              <Card
-                key={item.product._id}
-                className="mb-3 p-2 shadow-sm"
-                style={{ width: "80%" }}
-                onClick={() => change(item.product._id)}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <img
-                    src={item.product.image}
-                    alt={item.product.name}
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                      objectFit: "cover",
-                      borderRadius: "8px",
-                      marginRight: "10px",
-                    }}
-                  />
-                  <div>
-                    <h6 style={{ margin: 0 }}>{item.product.name}</h6>
-                    <small style={{ marginRight: "20px" }}>
-                      Qty: {item.quantity}
-                    </small>
-                    <small>Size: {item.size}</small>
-                    <p style={{ margin: 0 }}>
-                      ₹{item.product.price * item.quantity}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-            <h5>Total: ₹{subtotal}</h5>
+  {/* Right side order summary */}
+  <div
+    style={{
+      flex: "1 1 300px",
+      minWidth: "250px",
+      maxWidth: "400px",
+    }}
+  >
+    <h6 style={{ fontSize: "12px", fontWeight: "bolder" }}>DELIVERY ESTIMATES</h6>
+    {cartItems.map((item) => (
+      <Card
+        key={item.product._id}
+        className="mb-3 p-2 shadow-sm"
+        style={{ width: "100%" }}
+        onClick={() => change(item.product._id)}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={item.product.image}
+            alt={item.product.name}
+            style={{
+              width: "60px",
+              height: "60px",
+              objectFit: "cover",
+              borderRadius: "8px",
+              marginRight: "10px",
+            }}
+          />
+          <div>
+            <h6 style={{ margin: 0 }}>{item.product.name}</h6>
+            <small style={{ marginRight: "20px" }}>Qty: {item.quantity}</small>
+            <small>Size: {item.size}</small>
+            <p style={{ margin: 0 }}>₹{item.product.price * item.quantity}</p>
           </div>
-
-          {/* ✅ Success Modal */}
-          <Modal show={showSuccess} onHide={() => setShowSuccess(false)} centered>
-            <Modal.Header closeButton>
-              <Modal.Title>Order Placed Successfully 🎉</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>Thank you for shopping with us.</p>
-              <p>Your order has been placed successfully.</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="success" onClick={() => { setShowSuccess(false); navigate("/"); }}>
-                Continue Shopping
-              </Button>
-              <Button variant="primary" onClick={() => { setShowSuccess(false); navigate("/myorders"); }}>
-                View My Orders
-              </Button>
-            </Modal.Footer>
-          </Modal>
         </div>
+      </Card>
+    ))}
+    <h5>Total: ₹{subtotal}</h5>
+  </div>
+</div>
+
       );
     };
 

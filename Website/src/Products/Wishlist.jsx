@@ -89,7 +89,7 @@ const Wishlist = () => {
   if (authLoading || loading) return <p>Loading...</p>;
 
   return (
-    <Container style={{ marginTop: "120px", marginBottom: "50px",height:"50vh" }}>
+    <Container style={{ marginTop: "120px", marginBottom: "50px" }}>
       <h3 className="mb-4">Your Wishlist</h3>
 
       {wishlist.length === 0 ? (

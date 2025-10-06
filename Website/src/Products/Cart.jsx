@@ -4,6 +4,7 @@ import { Container, Row, Card, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Authentification/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
+import "../Css/Cart.css";
 
 const Cart = () => {
   const { token } = useContext(AuthContext);
@@ -77,7 +78,6 @@ const Cart = () => {
     const handleCartUpdate = () => {
       fetchCart();
     };
-
     window.addEventListener("cartUpdated", handleCartUpdate);
     return () => window.removeEventListener("cartUpdated", handleCartUpdate);
   }, []);
@@ -98,9 +98,10 @@ const Cart = () => {
   if (loading) return <p>Loading your cart...</p>;
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "300px", minHeight: "50vh" }}>
-      <div style={{ width: "100%", maxWidth: "750px", marginLeft: "100px" }}>
-        <Container style={{ marginTop: "120px", marginBottom: "50px" }}>
+    <div className="cart-container">
+      {/* Left Section - Cart Items */}
+      <div className="cart-items-section">
+        <Container className="cart-main">
           <h3 className="mb-4">Your Shopping Cart</h3>
           {cartItems.length === 0 ? (
             <p>
@@ -115,95 +116,82 @@ const Cart = () => {
           ) : (
             <Row className="g-4">
               {cartItems.map((item) => (
-                <Card
-                  style={{ width: "700px", height: "180px", borderRadius: "0px" }}
-                  className="shadow-sm"
-                  key={item.product._id}
-                >
-                  <div className="d-flex">
-                    <div>
-                      <Card.Img
-                        variant="top"
-                        src={item.product.image}
-                        alt={item.product.name}
-                        style={{
-                          height: "160px",
-                          objectFit: "cover",
-                          borderRadius: "0px",
-                          marginTop: "9px",
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Card.Body>
-                        <Card.Title style={{ fontSize: "18px" }}>{item.product.name}</Card.Title>
-                        <Card.Text style={{ fontSize: "13px", marginTop: "-10px" }}>
-                          {item.product.description}
-                        </Card.Text>
-                        <div
-                          className="d-flex align-items-center gap-3 mb-2"
-                          style={{ marginTop: "-10px" }}
-                        >
-                          <div className="d-flex align-items-center">
-                            <span style={{ marginRight: "5px", fontSize: "13px" }}>Size:</span>
-                            <Form.Select
-                              value={item.size || ""}
-                              onChange={(e) => updateSize(item.product._id, e.target.value)}
-                              style={{
-                                width: "70px",
-                                height: "30px",
-                                textAlign: "center",
-                                padding: "2px 8px",
-                                fontSize: "14px",
-                              }}
-                            >
-                              <option value="" disabled>
-                                Size
-                              </option>
-                              {["S", "M", "L", "XL"].map((size) => (
-                                <option key={size} value={size}>
-                                  {size}
-                                </option>
-                              ))}
-                            </Form.Select>
-                          </div>
+                <Card className="cart-card shadow-sm" key={item.product._id}>
+                  {/* Remove Button */}
+                  <Button
+                    variant="link"
+                    className="remove-btn"
+                    onClick={() => removeItem(item.product._id)}
+                  >
+                    <RxCross2 />
+                  </Button>
 
-                          <div className="d-flex align-items-center">
-                            <span style={{ marginRight: "5px", fontSize: "13px" }}>Qty:</span>
-                            <Form.Select
-                              value={item.quantity}
-                              onChange={(e) =>
-                                updateQuantity(item.product._id, parseInt(e.target.value))
-                              }
-                              style={{
-                                width: "70px",
-                                height: "30px",
-                                textAlign: "center",
-                                padding: "2px 8px",
-                                fontSize: "14px",
-                              }}
-                            >
-                              {[1, 2, 3, 4, 5, 6].map((num) => (
-                                <option key={num} value={num}>
-                                  {num}
-                                </option>
-                              ))}
-                            </Form.Select>
-                          </div>
-                        </div>
-                        <Card.Text style={{ fontWeight: "bolder", fontSize: "14px" }}>
-                          ₹{item.product.price}
-                        </Card.Text>
-                      </Card.Body>
-                    </div>
+                  {/* Product Image */}
+                  <div className="cart-img-wrapper">
+                    <Card.Img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className="cart-img"
+                    />
+                  </div>
+
+                  {/* Product Details */}
+                  <div className="cart-details">
                     <div>
-                      <h6
-                        style={{ marginTop: "10px", cursor: "pointer" }}
-                        onClick={() => removeItem(item.product._id)}
-                      >
-                        <RxCross2 />
-                      </h6>
+                      <Card.Title className="cart-title">
+                        {item.product.name}
+                      </Card.Title>
+                      <Card.Text className="cart-desc">
+                        {item.product.description}
+                      </Card.Text>
+
+                      {/* Size & Quantity */}
+                      <div className="d-flex align-items-center gap-3 mb-2">
+                        <div className="d-flex align-items-center">
+                          <span className="small-text">Size:</span>
+                          <Form.Select
+                            value={item.size || ""}
+                            onChange={(e) =>
+                              updateSize(item.product._id, e.target.value)
+                            }
+                            className="cart-select"
+                          >
+                            <option value="" disabled>
+                              Size
+                            </option>
+                            {["S", "M", "L", "XL"].map((size) => (
+                              <option key={size} value={size}>
+                                {size}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </div>
+
+                        <div className="d-flex align-items-center">
+                          <span className="small-text">Qty:</span>
+                          <Form.Select
+                            value={item.quantity}
+                            onChange={(e) =>
+                              updateQuantity(
+                                item.product._id,
+                                parseInt(e.target.value)
+                              )
+                            }
+                            className="cart-select"
+                          >
+                            {[1, 2, 3, 4, 5, 6].map((num) => (
+                              <option key={num} value={num}>
+                                {num}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </div>
+                      </div>
                     </div>
+
+                    <Card.Text className="cart-price">
+                      ₹{item.product.price}
+                    </Card.Text>
                   </div>
                 </Card>
               ))}
@@ -212,31 +200,17 @@ const Cart = () => {
         </Container>
       </div>
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "300px",
-          marginTop: "30px",
-          marginLeft: "20px",
-        }}
-      >
-        <div
-          className="price-details text-center text-md-start"
-          style={{ marginTop: "50px" }}
-        >
-          <h6 style={{ fontSize: "12px", fontWeight: "bolder", marginBottom: "15px" }}>
-            PRICE DETAILS
-          </h6>
+      {/* Right Section - Price Summary */}
+      <div className="price-section">
+        <div className="price-details">
+          <h6 className="price-header">PRICE DETAILS</h6>
 
-          <div className="d-flex justify-content-between mb-1" style={{ fontSize: "12px" }}>
+          <div className="d-flex justify-content-between mb-1 small-text">
             <span>Total MRP</span>
             <span>₹{subtotal}</span>
           </div>
           <hr />
-          <div
-            className="d-flex justify-content-between mb-3"
-            style={{ fontSize: "13px", fontWeight: "bold" }}
-          >
+          <div className="d-flex justify-content-between mb-3 fw-bold small-text">
             <span>Total Amount</span>
             <span>₹{subtotal}</span>
           </div>
