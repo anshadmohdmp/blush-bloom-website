@@ -213,7 +213,7 @@ const submitOrder = async (paymentResponse = null, paymentMode = PaymentMode) =>
         <Form.Control
           value={Pincode}
           onChange={handlePincodeChange}
-          placeholder="Pincode Code"
+          placeholder="Pincode"
           isInvalid={!!PincodeError}
         />
         {PincodeError && (
@@ -305,6 +305,37 @@ const submitOrder = async (paymentResponse = null, paymentMode = PaymentMode) =>
     ))}
     <h5>Total: ₹{subtotal}</h5>
   </div>
+
+  {/* ✅ Success Modal */}
+<Modal show={showSuccess} onHide={() => setShowSuccess(false)} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Order Placed Successfully 🎉</Modal.Title>
+  </Modal.Header>
+  <Modal.Body className="text-center">
+    <p>Your order has been placed successfully!</p>
+  </Modal.Body>
+  <Modal.Footer className="d-flex justify-content-center">
+    <Button
+      variant="dark"
+      onClick={() => {
+        setShowSuccess(false);
+        navigate("/");
+      }}
+    >
+      Continue Shopping
+    </Button>
+    <Button
+      variant="success"
+      onClick={() => {
+        setShowSuccess(false);
+        navigate("/myorders");
+      }}
+    >
+      View My Orders
+    </Button>
+  </Modal.Footer>
+</Modal>
+
 </div>
 
       );
