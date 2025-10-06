@@ -52,13 +52,13 @@ const MyOrders = () => {
         Order #{order._id.slice(-6).toUpperCase()}
       </h5>
       <Button
-        variant="outline-dark"
-        size="sm"
-        className="ms-2"
-        onClick={() => details(order._id)}
-      >
-        View Order
-      </Button>
+  variant="outline-dark"
+  size="sm"
+  className="ms-2 view-order-btn"
+  onClick={() => details(order._id)}
+>
+  View
+</Button>
     </div>
     <span
       style={{

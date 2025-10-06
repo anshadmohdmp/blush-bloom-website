@@ -2,3 +2,25 @@
     background-color: black;
     color: aliceblue;
 }
+/* Make View Order button small and next to order number on mobile */
+.view-order-btn {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
+/* Align properly on small screens */
+@media (max-width: 576px) {
+  .view-order-btn {
+    font-size: 0.7rem;
+    padding: 1px 6px;
+    margin-left: 4px;
+  }
+
+  .order-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
