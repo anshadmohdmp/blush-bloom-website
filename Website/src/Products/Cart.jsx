@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Row, Card, Button, Form, Col } from "react-bootstrap";
+import { Container, Row, Card, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Authentification/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
@@ -12,20 +12,19 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const storedToken = localStorage.getItem("token");
-  if (!token && !storedToken) {
-    navigate("/Login");
-  } else {
-    fetchCart();
-  }
-}, [token, navigate]);
+    const storedToken = localStorage.getItem("token");
+    if (!token && !storedToken) {
+      navigate("/Login");
+    } else {
+      fetchCart();
+    }
+  }, [token, navigate]);
 
-// 👇 Add this effect to clear UI when backend cart is empty
-useEffect(() => {
-  if (cartItems.length === 0) {
-    localStorage.removeItem("cartItems");
-  }
-}, [cartItems]);
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      localStorage.removeItem("cartItems");
+    }
+  }, [cartItems]);
 
   const fetchCart = async () => {
     try {
@@ -34,8 +33,6 @@ useEffect(() => {
       });
       setCartItems(res.data.items || []);
       setLoading(false);
-      console.log(res.data);
-
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -77,13 +74,13 @@ useEffect(() => {
   };
 
   useEffect(() => {
-  const handleCartUpdate = () => {
-    fetchCart(); // reload cart when cleared after order
-  };
+    const handleCartUpdate = () => {
+      fetchCart();
+    };
 
-  window.addEventListener("cartUpdated", handleCartUpdate);
-  return () => window.removeEventListener("cartUpdated", handleCartUpdate);
-}, []);
+    window.addEventListener("cartUpdated", handleCartUpdate);
+    return () => window.removeEventListener("cartUpdated", handleCartUpdate);
+  }, []);
 
   const updateSize = async (productId, newSize) => {
     try {
@@ -92,7 +89,7 @@ useEffect(() => {
         { productId, size: newSize },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchCart(); // refresh cart
+      fetchCart();
     } catch (err) {
       console.error(err);
     }
@@ -101,67 +98,159 @@ useEffect(() => {
   if (loading) return <p>Loading your cart...</p>;
 
   return (
-    <div className="d-flex flex-wrap" style={{ marginBottom: "300px", marginTop: "120px" }}>
-  {/* Left: Cart items */}
-  <div className="cart-items me-3" style={{ flex: "1 1 700px", minWidth: "300px" }}>
-    <Container>
-      <h3 className="mb-4">Your Shopping Cart</h3>
-      {cartItems.length === 0 ? (
-        <p>
-          Your cart is empty.{" "}
-          <Button style={{ backgroundColor: "black", border: "none" }} onClick={() => navigate("/")}>
-            Go Shopping
+    <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "300px", minHeight: "50vh" }}>
+      <div style={{ width: "100%", maxWidth: "750px", marginLeft: "100px" }}>
+        <Container style={{ marginTop: "120px", marginBottom: "50px" }}>
+          <h3 className="mb-4">Your Shopping Cart</h3>
+          {cartItems.length === 0 ? (
+            <p>
+              Your cart is empty.{" "}
+              <Button
+                style={{ backgroundColor: "black", border: "none" }}
+                onClick={() => navigate("/")}
+              >
+                Go Shopping
+              </Button>
+            </p>
+          ) : (
+            <Row className="g-4">
+              {cartItems.map((item) => (
+                <Card
+                  style={{ width: "700px", height: "180px", borderRadius: "0px" }}
+                  className="shadow-sm"
+                  key={item.product._id}
+                >
+                  <div className="d-flex">
+                    <div>
+                      <Card.Img
+                        variant="top"
+                        src={item.product.image}
+                        alt={item.product.name}
+                        style={{
+                          height: "160px",
+                          objectFit: "cover",
+                          borderRadius: "0px",
+                          marginTop: "9px",
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Card.Body>
+                        <Card.Title style={{ fontSize: "18px" }}>{item.product.name}</Card.Title>
+                        <Card.Text style={{ fontSize: "13px", marginTop: "-10px" }}>
+                          {item.product.description}
+                        </Card.Text>
+                        <div
+                          className="d-flex align-items-center gap-3 mb-2"
+                          style={{ marginTop: "-10px" }}
+                        >
+                          <div className="d-flex align-items-center">
+                            <span style={{ marginRight: "5px", fontSize: "13px" }}>Size:</span>
+                            <Form.Select
+                              value={item.size || ""}
+                              onChange={(e) => updateSize(item.product._id, e.target.value)}
+                              style={{
+                                width: "70px",
+                                height: "30px",
+                                textAlign: "center",
+                                padding: "2px 8px",
+                                fontSize: "14px",
+                              }}
+                            >
+                              <option value="" disabled>
+                                Size
+                              </option>
+                              {["S", "M", "L", "XL"].map((size) => (
+                                <option key={size} value={size}>
+                                  {size}
+                                </option>
+                              ))}
+                            </Form.Select>
+                          </div>
+
+                          <div className="d-flex align-items-center">
+                            <span style={{ marginRight: "5px", fontSize: "13px" }}>Qty:</span>
+                            <Form.Select
+                              value={item.quantity}
+                              onChange={(e) =>
+                                updateQuantity(item.product._id, parseInt(e.target.value))
+                              }
+                              style={{
+                                width: "70px",
+                                height: "30px",
+                                textAlign: "center",
+                                padding: "2px 8px",
+                                fontSize: "14px",
+                              }}
+                            >
+                              {[1, 2, 3, 4, 5, 6].map((num) => (
+                                <option key={num} value={num}>
+                                  {num}
+                                </option>
+                              ))}
+                            </Form.Select>
+                          </div>
+                        </div>
+                        <Card.Text style={{ fontWeight: "bolder", fontSize: "14px" }}>
+                          ₹{item.product.price}
+                        </Card.Text>
+                      </Card.Body>
+                    </div>
+                    <div>
+                      <h6
+                        style={{ marginTop: "10px", cursor: "pointer" }}
+                        onClick={() => removeItem(item.product._id)}
+                      >
+                        <RxCross2 />
+                      </h6>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </Row>
+          )}
+        </Container>
+      </div>
+
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "300px",
+          marginTop: "30px",
+          marginLeft: "20px",
+        }}
+      >
+        <div
+          className="price-details text-center text-md-start"
+          style={{ marginTop: "50px" }}
+        >
+          <h6 style={{ fontSize: "12px", fontWeight: "bolder", marginBottom: "15px" }}>
+            PRICE DETAILS
+          </h6>
+
+          <div className="d-flex justify-content-between mb-1" style={{ fontSize: "12px" }}>
+            <span>Total MRP</span>
+            <span>₹{subtotal}</span>
+          </div>
+          <hr />
+          <div
+            className="d-flex justify-content-between mb-3"
+            style={{ fontSize: "13px", fontWeight: "bold" }}
+          >
+            <span>Total Amount</span>
+            <span>₹{subtotal}</span>
+          </div>
+          <Button
+            style={{ width: "100%", borderRadius: "0px", fontSize: "13px" }}
+            variant="success"
+            size="lg"
+            onClick={handlesubmit}
+          >
+            Checkout
           </Button>
-        </p>
-      ) : (
-        <Row className="g-4">
-          {cartItems.map((item) => (
-            <Card
-              style={{ width: "100%", height: "180px", borderRadius: "0px" }}
-              className="shadow-sm"
-              key={item.product._id}
-            >
-              {/* ... your existing Card content ... */}
-            </Card>
-          ))}
-        </Row>
-      )}
-    </Container>
-  </div>
-
-  {/* Divider */}
-  <div
-    className="d-none d-md-block"
-    style={{
-      width: "1px",
-      backgroundColor: "#ccc",
-      marginTop: "130px",
-      marginBottom: "50px",
-    }}
-  ></div>
-
-  {/* Right: Price Details */}
-  <div
-    className="price-details mt-4 mt-md-0"
-    style={{ flex: "0 0 300px", minWidth: "250px" }}
-  >
-    <h6 style={{ fontSize: "12px", fontWeight: "bolder", marginBottom: "20px" }}>PRICE DETAILS</h6>
-
-    <div className="d-flex justify-content-between mb-2">
-      <span>Total MRP</span>
-      <span>₹{subtotal}</span>
+        </div>
+      </div>
     </div>
-    <hr />
-    <div className="d-flex justify-content-between mb-3">
-      <strong>Total Amount</strong>
-      <strong>₹{subtotal}</strong>
-    </div>
-    <Button style={{ width: "100%", borderRadius: "0px" }} variant="success" size="lg" onClick={handlesubmit}>
-      Checkout
-    </Button>
-  </div>
-</div>
-
   );
 };
 
